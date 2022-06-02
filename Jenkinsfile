@@ -6,9 +6,15 @@ pipeline {
          }
    
    stages {
+     
+       stage('Hello World') {
+           steps {
+echo "Hello Wold"
+                 } 
+      }
       stage('checkout the project') {
            steps {
-             git branch:'master', url: 'https://github.com/Gautam-26/SeleniumPracticeRepo.git'
+             git url: 'https://github.com/Gautam-26/SeleniumPracticeRepo.git', branch: 'master'
                  } 
       }
       
