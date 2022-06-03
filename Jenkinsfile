@@ -10,7 +10,7 @@ pipeline {
         stage('Build') {
             steps {
                 // Get some code from a GitHub repository
-                git 'https://github.com/jglick/simple-maven-project-with-tests.git'
+                git 'https://github.com/Gautam-26/SeleniumPracticeRepo.git'
 
 
                 // To run Maven on a Windows agent, use
