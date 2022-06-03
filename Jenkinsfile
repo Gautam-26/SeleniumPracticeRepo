@@ -1,30 +1,30 @@
 pipeline {
+    agent any
 
-   agent any 
-   tools {
-            maven 'Maven 3'
-         }
-   
-   stages {
-     
-       stage('Hello World') {
-           steps {
-echo "Hello Wold"
-                 } 
-      }
-      stage('checkout the project') {
-           steps {
-             git url: 'https://github.com/Gautam-26/SeleniumPracticeRepo.git', branch: 'master'
-                 } 
-      }
-      
-      stage('Build the package') {
-         steps {
-            sh 'mvn clean package'
-          }
-      }
-   
-   }
- 
+    tools {
+        // Install the Maven version configured as "M3" and add it to the path.
+        maven "Maven 3"
+    }
 
+    stages {
+        stage('Build') {
+            steps {
+                // Get some code from a GitHub repository
+                git 'https://github.com/jglick/simple-maven-project-with-tests.git'
+
+
+                // To run Maven on a Windows agent, use
+                // bat "mvn -Dmaven.test.failure.ignore=true clean package"
+            }
+
+            post {
+                // If Maven was able to run the tests, even if some of the test
+                // failed, record the test results and archive the jar file.
+                success {
+                    junit '**/target/surefire-reports/TEST-*.xml'
+                    archiveArtifacts 'target/*.jar'
+                }
+            }
+        }
+    }
 }
